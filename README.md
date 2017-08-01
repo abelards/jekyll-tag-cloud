@@ -2,21 +2,22 @@
 Displaying a Jekyll tag cloud with a Liquid Tag
 
 ## Caution
-This is an experiment. I'm probably doing things wrong.
+This is an experiment. I'm probably doing things wrong. 
 This is also a Work In Progress. The goal is to have a self-filtering list.
 
 ## How to use
 0. Use Jekyll
-1. Have some data you want to tag. Say, `books.csv` has a column `topics` with tags (comma-separated)
-2. Add the `topics_tags.rb` file in your `_plugins` directory.
-3. In your view (post or layout), use `{% tag_toggler books topics %}`
+1. Add the `topics_tags.rb` file in your `_plugins` directory.
+2. Have some data you want to tag:
+  2a. say you have a file in `_data/books.csv`, with tags listed in a `topics` column (comma-separated)
+  2b. you just want a tag cloud for your blog posts, and they all have a `category` field in the FrontMatter
+3. In your view (post or layout), use `{% tag_toggler books topics %}` or `{% tag_toggler posts category %}`
+4. You might want to use the JS file included to make these tags clickable and the list filterable
 
 ## TODO
-- I will probably do a (vanilla) JS to toggle tags for a search
-- I will then have to bundle example code for the list, the JS and the tag cloud
+- I want to add options management, and possibly HTML options
 - ability to sort by frequency OR alphabetical order
 - counts, perhaps
-- I want to add options management, and possibly HTML options
 
 ## Lessons learned
 ### Getting args:
