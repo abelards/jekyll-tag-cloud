@@ -37,10 +37,14 @@ module Jekyll
     def render(context)
       # get data from
       data =    context.environments.first['site']['data'][@data]
-      raw = data.map{|d| d[@method] }
+      data =    context.environments.first['site']['posts'] if !data
+
+      raw =     data.first.respond_to?(:keys) && data.first.keys.size == 1 ?
+          data.map{|d| d.values.first[@method] } : # an item has a name and attributes
+          data.map{|d| d[@method] }                # an item is a list of attributes
 
       # get the tags
-      @tags = raw.map{|r| r.to_s.split(',') }.flatten.map(&:strip).uniq.reject{|x| x.size == 0}.sort
+      @tags = raw.map{|r| r.to_s.split(',') }.flatten.map(&:strip).uniq.reject{|x| x.size == 0}.sort {|a,b| a.downcase <=> b.downcase }
 
       # outputs HTML
       cloud = @tags.map{|t| %Q[<#{@tag} class="#{@class}">#{t}</#{@tag}>] }.join(@join)
